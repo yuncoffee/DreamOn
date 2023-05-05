@@ -11,13 +11,12 @@ import DeviceActivity
 import ManagedSettings
 
 struct ContentView: View {
+    
     @ObservedObject
     var store: ScreenTimeStore
         
     @State
     var isShieldedAppPickerPresented = false
-    
-
     
     var body: some View {
         ScrollView() {
@@ -33,37 +32,61 @@ struct ContentView: View {
                     reqNotificationPermission()
                 }
                 CustomButtonView(
+                    buttonName: "Reset Shielded Apps",
+                    buttonColor: .pink) {
+                    handleResetSelection()
+                    
+                }
+                CustomButtonView(
                     buttonName: "Select Apps to Shield",
                     buttonColor: .orange) {
                     isShieldedAppPickerPresented.toggle()
                 }
-                    .familyActivityPicker(headerText: "헤더명", isPresented: $isShieldedAppPickerPresented, selection: ScreenTimeStore.shared.$selectedApps)
-                if store.selectedApps.applicationTokens.count > 0 {
-                    if let firstToken = store.selectedApps.applicationTokens.first {
-                        Label(firstToken)
-                            .frame(maxWidth: .infinity)
-                            .labelStyle(.iconOnly)
-                    } else {
-                        
-                    }
+                .familyActivityPicker(headerText: "헤더명", isPresented: $isShieldedAppPickerPresented, selection: ScreenTimeStore.shared.$selectedApps)
+                
+                if let firstToken = ScreenTimeStore.shared.selectedApps.applicationTokens.first {
+                    Label(firstToken)
+                        .frame(maxWidth: .infinity)
+                        .labelStyle(.iconOnly)
+                } else {
+                    Text("선택된 앱이 없습니다.")
                 }
+                CustomButtonView(
+                    buttonName: "Start Shield",
+                    buttonColor: .red) {
+                        handleStartDeviceActivityMonitoring()
+                }
+                CustomButtonView(
+                    buttonName: "Block Shield",
+                    buttonColor: .teal) {
+                        handleSetBlockApplication()
+                }
+                CustomButtonView(
+                    buttonName: "Schedule List",
+                    buttonColor: .teal) {
+                        print(ScreenTimeStore.shared.deviceActivityCenter.activities)
+                        let activityName = ScreenTimeStore.shared.deviceActivityCenter.activities[0]
+                        
+                        print(ScreenTimeStore.shared.deviceActivityCenter.schedule(for: activityName) ?? "not")
+                        print(ScreenTimeStore.shared.deviceActivityCenter.events(for: activityName))
+                        
+                }
+//                if ScreenTimeStore.shared.selectedApps.applicationTokens.count > 0 {
+//
+//                }
             }
-            .padding()
-//            FamilyActivityPicker(selection: $selectedApps)
-            VStack {
-                // FamilyActivityPicker 를 밖으로 뺄 수 있다.
-                FamilyActivityPicker(selection: ScreenTimeStore.shared.$selectedApps)
-                    .tint(.indigo)
-                    .frame(height: 400)
-             }
-            .onChange(of: store.selectedApps) { newSelection in
-//                let applications = store.selectedApps.applications
-                let token = store.selectedApps.applicationTokens
-//                print(applications.count)
-//                print(applications)
-                print(token.count)
-//                tokens = token
-             }
+//            VStack {
+//                // FamilyActivityPicker 를 밖으로 뺄 수 있다.
+//                FamilyActivityPicker(selection: store.$selectedApps)
+//                    .tint(.indigo)
+//                    .frame(height: 400)
+//                    .onChange(of: store.selectedApps) { newSelection in
+//                        print(newSelection)
+//                        let token = newSelection.applicationTokens
+//                        print(token.count)
+//                    }
+//
+//             }
         }
     }
 }
@@ -133,6 +156,20 @@ extension ContentView {
             }
         }
 
+    }
+    //MARK: 현재 선택된 앱 초기화
+    private func handleResetSelection() {
+        ScreenTimeStore.shared.handleResetSelection()
+        handleStartDeviceActivityMonitoring(includeUsageThreshold: false)
+    }
+    
+    //MARK: 앱 제한 모니터링 등록 및 시작
+    private func handleStartDeviceActivityMonitoring(includeUsageThreshold: Bool = true) {
+        ScreenTimeStore.shared.handleStartDeviceActivityMonitoring(includeUsageThreshold: includeUsageThreshold)
+    }
+    
+    private func handleSetBlockApplication() {
+        ScreenTimeStore.shared.handleSetBlockApplication()
     }
 }
 
