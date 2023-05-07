@@ -12,22 +12,45 @@
 		<key>DeviceActivityMonitor.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>DreamOn.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>3</integer>
 		</dict>
 		<key>ShieldAction.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<key>ShieldConfiguration.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>A9948BF22A04B36C00F56DAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9948CA52A05714A00F56DAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9948CB72A0571C200F56DAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9948CC82A0575B300F56DAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

@@ -25,6 +25,8 @@
 		A9948CCA2A0575B300F56DAE /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9948C292A05149100F56DAE /* DeviceActivity.framework */; };
 		A9948CCD2A0575B300F56DAE /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9948CCC2A0575B300F56DAE /* DeviceActivityMonitorExtension.swift */; };
 		A9948CD22A0575B300F56DAE /* DeviceActivityMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A9948CC92A0575B300F56DAE /* DeviceActivityMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A9FFD6DA2A075F7F00F48A20 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FFD6D92A075F7F00F48A20 /* NotificationManager.swift */; };
+		A9FFD6DB2A07619A00F48A20 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FFD6D92A075F7F00F48A20 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,7 @@
 		A9948CCC2A0575B300F56DAE /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
 		A9948CCE2A0575B300F56DAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9948CCF2A0575B300F56DAE /* DeviceActivityMonitor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeviceActivityMonitor.entitlements; sourceTree = "<group>"; };
+		A9FFD6D92A075F7F00F48A20 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +210,7 @@
 				A9948BFA2A04B36E00F56DAE /* Assets.xcassets */,
 				A9948BFC2A04B36E00F56DAE /* Preview Content */,
 				A9948C212A04E57900F56DAE /* ScreenTimeStore.swift */,
+				A9FFD6D92A075F7F00F48A20 /* NotificationManager.swift */,
 			);
 			path = DreamOn;
 			sourceTree = "<group>";
@@ -497,6 +501,7 @@
 			files = (
 				A9948C222A04E57900F56DAE /* ScreenTimeStore.swift in Sources */,
 				A9948BF92A04B36C00F56DAE /* ContentView.swift in Sources */,
+				A9FFD6DA2A075F7F00F48A20 /* NotificationManager.swift in Sources */,
 				A9948BF72A04B36C00F56DAE /* DreamOnApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +543,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9FFD6DB2A07619A00F48A20 /* NotificationManager.swift in Sources */,
 				A9948CCD2A0575B300F56DAE /* DeviceActivityMonitorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

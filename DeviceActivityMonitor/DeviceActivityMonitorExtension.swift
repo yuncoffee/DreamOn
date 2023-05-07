@@ -16,27 +16,39 @@ import FamilyControls
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
-    @AppStorage("shieldedApps", store: UserDefaults(suiteName: "group.com.shield.dreamon")) var shieldedApps = FamilyActivitySelection()
-    
-    
+    @AppStorage("selectedApps", store: UserDefaults(suiteName: "group.com.shield.dreamon"))
+    var shieldedApps = FamilyActivitySelection()
+
     override func intervalDidStart(for activity: DeviceActivityName) {
         super.intervalDidStart(for: activity)
+        if activity == .daily {
+            // Shield all apps and websites
+            let store = ManagedSettingsStore(named: .tenSeconds)
+//            store.shield.applications = shieldedApps.applicationTokens
+//            store.shield.applicationCategories = .specific(shieldedApps.categoryTokens)
+            store.shield.applications = shieldedApps.applicationTokens.isEmpty ? nil : shieldedApps.applicationTokens
+            store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(shieldedApps.categoryTokens)
+            
+        }
+        
         
         // Handle the start of the interval.
     }
     
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
-        
+        if activity == .daily {
+            // Clear shields
+            let store = ManagedSettingsStore(named: .tenSeconds)
+            store.clearAllSettings()
+        }
         // Handle the end of the interval.
     }
     
     override func eventDidReachThreshold(_ event: DeviceActivityEvent.Name, activity: DeviceActivityName) {
         super.eventDidReachThreshold(event, activity: activity)
-        
-        let store = ManagedSettingsStore()
-        store.shield.applications = shieldedApps.applicationTokens
-        store.shield.applicationCategories = .specific(shieldedApps.categoryTokens)
+//        store.shield.applications = shieldedApps.applicationTokens
+//        store.shield.applicationCategories = .specific(shieldedApps.categoryTokens)
         
         
         // Handle the event reaching its threshold.
@@ -44,7 +56,7 @@ class DeviceActivityMonitorExtension: DeviceActivityMonitor {
     
     override func intervalWillStartWarning(for activity: DeviceActivityName) {
         super.intervalWillStartWarning(for: activity)
-        
+            NotificationManager.shared.scheduleNotification()
         // Handle the warning before the interval starts.
     }
     
@@ -80,4 +92,14 @@ extension FamilyActivitySelection: RawRepresentable {
         }
         return result
     }
+}
+
+extension DeviceActivityName {
+    static let daily = Self("daily")
+    static let weekend = Self("weekend")
+}
+
+extension ManagedSettingsStore.Name {
+    static let tenSeconds = Self("threshold.seconds.ten")
+    static let weekend = Self("weekend")
 }

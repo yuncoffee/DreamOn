@@ -24,25 +24,25 @@ struct ContentView: View {
                 CustomButtonView(
                     buttonName: "Request Authorization",
                     buttonColor: .orange) {
-                    reqScreenTimePermission()
-                }
+                        reqScreenTimePermission()
+                    }
                 CustomButtonView(
                     buttonName: "Request Notifications Permission",
                     buttonColor: .cyan) {
-                    reqNotificationPermission()
-                }
+                        NotificationManager.shared.requestAuthorization()
+                    }
                 CustomButtonView(
                     buttonName: "Reset Shielded Apps",
                     buttonColor: .pink) {
-                    handleResetSelection()
-                    
-                }
+                        handleResetSelection()
+                        
+                    }
                 CustomButtonView(
                     buttonName: "Select Apps to Shield",
                     buttonColor: .orange) {
-                    isShieldedAppPickerPresented.toggle()
-                }
-                .familyActivityPicker(headerText: "헤더명", isPresented: $isShieldedAppPickerPresented, selection: ScreenTimeStore.shared.$selectedApps)
+                        isShieldedAppPickerPresented.toggle()
+                    }
+                    .familyActivityPicker(headerText: "헤더명", isPresented: $isShieldedAppPickerPresented, selection: ScreenTimeStore.shared.$selectedApps)
                 
                 if let firstToken = ScreenTimeStore.shared.selectedApps.applicationTokens.first {
                     Label(firstToken)
@@ -55,12 +55,12 @@ struct ContentView: View {
                     buttonName: "Start Shield",
                     buttonColor: .red) {
                         handleStartDeviceActivityMonitoring()
-                }
+                    }
                 CustomButtonView(
                     buttonName: "Block Shield",
                     buttonColor: .teal) {
                         handleSetBlockApplication()
-                }
+                    }
                 CustomButtonView(
                     buttonName: "Schedule List",
                     buttonColor: .teal) {
@@ -70,11 +70,22 @@ struct ContentView: View {
                         print(ScreenTimeStore.shared.deviceActivityCenter.schedule(for: activityName) ?? "not")
                         print(ScreenTimeStore.shared.deviceActivityCenter.events(for: activityName))
                         
-                }
+                    }
+                CustomButtonView(
+                    buttonName: "show Noti!",
+                    buttonColor: .purple) {
+                        NotificationManager.shared.scheduleNotification()
+                    }
+                CustomButtonView(
+                    buttonName: "add weekend",
+                    buttonColor: .purple) {
+                        ScreenTimeStore.shared.addScheduleWeek()
+                    }
+            }
 //                if ScreenTimeStore.shared.selectedApps.applicationTokens.count > 0 {
 //
 //                }
-            }
+            
 //            VStack {
 //                // FamilyActivityPicker 를 밖으로 뺄 수 있다.
 //                FamilyActivityPicker(selection: store.$selectedApps)
